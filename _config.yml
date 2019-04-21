@@ -16,8 +16,8 @@
 title: Hello, Cruel World!
 email: gustavo.leao.nogueira.2017@gmail.com
 description: Um Blog de tecnologia para Nerd!
-baseurl: "/blog" 
-url: "https://gustavoleao2018.github.io/hcw-blog/" 
+baseurl: "/" 
+url: "https://gustavoleao2018.github.io/blog-gustavo/" 
 twitter_username: 02041997Leao
 github_username:  GustavoLeao2018
 
