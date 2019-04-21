@@ -2,7 +2,7 @@
 title: Comandos Linux Básicos
 layout: post
 date: '2019-04-19 18:30:00'
-categories: linux, shell, shellscript, script, bash, comandos, commands
+categories: linux; shell; shellscript; script; bash; comandos; commands
 ---
 
 # Comandos Básicos do Linux
