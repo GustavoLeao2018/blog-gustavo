@@ -1,0 +1,31 @@
+
+
+--SEÇÃO 1
+select * from aluno
+begin transaction; 
+	insert into aluno values 
+	('Max','2222222','1999-01-01',NUll);
+	insert into aluno values 
+	('Nicolas','33333','1997-10-12',NUll);
+
+rollback; 
+Commit;
+
+begin transaction; 
+	update aluno  set dtnasc='1998-05-02'  
+	     where nome = 'Max';
+	update  aluno set cel = 44444
+	      where nome ='Nicolas'
+	
+rollback; 
+Commit;
+ 
+
+
+--SEÇÃO 2
+
+Begin transaction; 
+update aluno set cel='3333' where nome = 'Max'
+commit;
+
+select * from aluno

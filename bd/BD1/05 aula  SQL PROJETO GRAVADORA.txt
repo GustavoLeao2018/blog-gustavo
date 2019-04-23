@@ -1,0 +1,98 @@
+-- AULA 08/04/2019 PROJETO GRAVADORA
+select * from CDs
+select * from gravadoras 
+
+create table autores(
+idAutor integer primary Key,
+nome varchar(50) not null,
+dtnasc date)
+
+insert into autores values 
+	(1,'Elma Ramalho'),
+	(2,'Marieta Severo')
+	
+insert into autores values 
+	(3,'Joao Bosco')
+insert into autores values 
+	(4,'Freddy Mercury')
+
+create table musicas(
+	idMusica integer primary Key,
+	tituloMusica varchar(50),
+	duracao time,
+	dtLanc date
+)
+insert into musicas values
+  (2,'Meu amor','00:03:45')
+insert into musicas values
+  (3,'Não Sonho mais','00:04:25')  
+insert into musicas values 
+  (4,'Odile Odila','00:05:00')
+insert into musicas values 
+  (5,'Love of my life','00:07:33')
+
+create table escritas(
+idAutor integer references autores(idAutor),
+idMusica integer references Musicas(idMusica),
+primary Key (idAutor,idMusica)	
+);
+insert into escritas values (1,2),
+                             (2,2);
+
+insert into escritas values (1,4),
+                             (3,4);
+insert into escritas values (4,5);
+	insert into escritas values (1,3)
+	select * from escritas 
+	
+	
+create table contem(
+idcd integer references cds(idcd),
+idMusica integer references Musicas(idMusica),
+primary Key (idcd,idMusica)	
+);
+
+
+select * from autores
+select * from musicas
+
+select * from autores 
+          join escritas using(idAutor)
+		  join musicas using (idmusica)
+		  
+select * from CDs
+
+
+--Para colocar a Chave Estrangeira do auto relacionamento 
+-- não é possível excluir a tabela já existem outros 
+-- relacionamentos
+drop table cds -- ??????????
+
+-- Alteração de tabela - Adicionar uma coluna 
+alter table cds add column idIndica integer 
+          references  cds(idcd)
+
+insert into contem values (1,5) 
+
+
+-- listar CDS e as MUSICAS através da relação CONTEM 
+-- lista Cds do Album 2 (elba Ramalho grandes Autores CD 2, 3, 4, 5
+
+select * from cds 
+         join  contem Using(idcd)
+		 join  musicas using(idmusica)
+		 where cds.idcd = 2
+         	  or cds.idindica=2
+
+
+Insert into cds values 
+(2,'Elba Ramalho Grandes Autores V1', '1994-03-15',1,NULL),
+(3,'Elba Ramalho Grandes Autores V2', '1994-03-15',1,2),
+(4,'Elba Ramalho Grandes Autores V3', '1994-03-15',1,2),
+(5,'Elba Ramalho Grandes Autores V4', '1994-03-15',1,2);
+
+select * from musicas 
+
+insert into contem values (2,2), (2,3)
+insert into contem values (3,4) 
+

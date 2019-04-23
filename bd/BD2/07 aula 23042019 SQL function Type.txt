@@ -1,0 +1,64 @@
+
+
+-- AULA 23 / 04 / 2019  - Functions com TYPE 
+
+
+CREATE TYPE type_pessoa_pet AS (
+    nome VARCHAR,
+    contato VARCHAR,
+    pet varCHAR
+);
+CREATE or replace FUNCTION get_pessoa_pet(integer)
+                           RETURNS SETOF type_pessoa_pet AS $$
+DECLARE
+    dados_pessoa_pet type_pessoa_pet;
+BEGIN
+    FOR dados_pessoa_pet IN SELECT p.nome, contato, a.nome
+	                 FROM pessoas p join possui Using(idpessoa)
+					                join animal a using(idanimal)
+					 
+					 LOOP
+        RETURN NEXT dados_pessoa_pet;
+    END LOOP;
+
+END;
+$$ LANGUAGE 'plpgsql'
+ 
+ 
+ 
+SELECT * FROM get_pessoa_pet();
+
+
+
+------------------------------------
+--Cuidado com escopo das variáveis--
+------------------------------------
+CREATE or replace FUNCTION somefunc() RETURNS integer AS $$
+<< outerblock >>
+
+DECLARE
+    quantity integer := 30;
+BEGIN
+    RAISE NOTICE 'Quantity here inicio is %', quantity;  -- Prints 30
+    quantity := 50;
+    --
+    -- Create a subblock
+    --
+    DECLARE
+        quantity integer := 80;
+    BEGIN
+        RAISE NOTICE 'Quantity here is %', quantity;  -- Prints 80
+        RAISE NOTICE 'Outer quantity here is %', outerblock.quantity;  -- Prints 50
+    END;
+
+    RAISE NOTICE 'Quantity here is %', quantity;  -- Prints 50
+
+    RETURN quantity;
+END;
+$$ LANGUAGE plpgsql;
+
+
+select somefunc()
+
+
+select * from pessoas

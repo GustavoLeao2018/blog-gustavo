@@ -1,0 +1,31 @@
+--1.Quais os serviços executados 
+--por animal (pet) por mês
+select * from animal
+select * from servicos
+create view Servicos_por_animal as 
+select idservico,descricao, idanimal, 
+       nome, datasolicitacao
+     from solicita join servicos using(idservico)
+	               join animal using(idanimal)
+				   order by datasolicitacao desc
+
+select * from Servicos_por_animal 
+where extract(month from datasolicitacao ) =  9
+  and extract(year from datasolicitacao ) = 2016
+
+
+
+
+commit 
+select * from pessoas
+
+select * from solicita
+insert into solicita
+values ('2016-09-10','10:00:00', 40,3,1,4,125455)
+
+insert into solicita
+values ('2016-09-20','11:00:00', 45,7,5,4,125455)
+
+ commit
+ 
+ 

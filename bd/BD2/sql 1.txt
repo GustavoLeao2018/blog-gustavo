@@ -1,0 +1,41 @@
+Exemplo Função Simples SQL com parâmetro TABELA:
+
+drop table empregados
+commit
+CREATE TEMP TABLE empregados (
+	nome text,
+	salario numeric,
+	idade integer
+	
+);
+
+
+INSERT INTO empregados VALUES('ANDRÉ LUIS MACHADO SOUZA',2200,21);
+INSERT INTO empregados VALUES('ANDREW CARDOSO FIGUEIRÓ',2300,20);
+INSERT INTO empregados VALUES('GABRIEL ZATT NUNES',2400,20);
+INSERT INTO empregados VALUES('GUSTAVO LEÃO NOGUEIRA DE OLIVEIRA',2500,22);
+INSERT INTO empregados VALUES('HENRIQUE MARTIM DA SILVA VIANNA',2250,22);
+INSERT INTO empregados VALUES('JONATAN GOULART MACIEL',2280,25);
+INSERT INTO empregados VALUES('LUCAS FERNANDO GONÇALVES DA SILVA',2300,22);
+INSERT INTO empregados VALUES('MATHEUS ZANI DORFMAN',2250,25);
+INSERT INTO empregados VALUES('MAX FRANK LEITES MENDES',2400,26);
+INSERT INTO empregados VALUES('MAXIMILIANO ANUNCIATO ZYNICH',2500,30);
+INSERT INTO empregados VALUES('NICOLAS MACHADO FLÔRES',2290,21);
+INSERT INTO empregados VALUES('PAULO FELIPE CAMARGO BERSAGUI',2400,20);
+INSERT INTO empregados VALUES('RAFAEL DE SOUZA SANTOS',2350,25);
+INSERT INTO empregados VALUES('TIAGO WINKEL LANDI',2400,22);
+INSERT INTO empregados VALUES('VITTÓRIO DE ANDRADE BARELLA',2300,24);
+
+
+
+select * from empregados
+ 
+drop  function dobrar_salario(empregados)
+
+CREATE or REPLACE FUNCTION dobrar_salario(empregados) RETURNS numeric AS $$
+	SELECT $1.salario * 2 AS salario_dobrado;
+$$ LANGUAGE SQL;
+
+SELECT nome, salario, dobrar_salario(empregados) 
+	FROM empregados; 
+

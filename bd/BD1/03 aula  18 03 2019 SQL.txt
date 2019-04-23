@@ -1,0 +1,64 @@
+create  table departamentos (
+codigo integer primary key,
+nome varchar(20) not null
+)
+insert into departamentos 
+(codigo, nome) values (1,'RH');
+
+select * from departamentos
+
+insert into departamentos 
+values (2,'contabilidade'); 
+
+insert into departamentos 
+values (3,'Marketing'),
+       (4,'Projetos'),
+	   (5,'limpeza');
+	   
+--Erro chave DUPLA	   
+insert into departamentos 
+    values(1,'desenvolvimento')
+/* erro nome nulo */
+insert into departamentos 
+    values (6,NULL)
+	
+insert into departamentos 
+    values (6)
+-- erro codigo nulo 	
+insert into departamentos
+ (nome) values ('desenvolvimento')
+-- nome não é unico permite duplicidade
+insert into departamentos 
+	values (6,'contabilidade')
+	
+select * from departamentos
+
+create table empregados(
+matricula integer primary key,
+nome varchar(50) not null,
+dtAdmiss date, 
+salario decimal(8,2), 
+rg bigint, 
+dtNasc date,
+rua varchar(50),
+numero varchar(15),
+bairro varchar(30),
+celular integer, 
+sexo integer,
+cnh bigint,
+cpf bigint, 
+codigo integer);
+
+	
+insert into empregados 
+(matricula,nome,dtAdmiss,salario,rg,dtNasc,rua,
+numero,bairro,celular,sexo,cnh,cpf,codigo)
+values 
+(7479,'Fabio','2010-05-15',1000.00,333333333,'1966-11-22',
+'ramiro barcelos','2222','santana',981619071,1,84848484,49494949494,1)
+
+select * from empregados
+	
+
+select  from empregados join departamentos 
+using (codigo)

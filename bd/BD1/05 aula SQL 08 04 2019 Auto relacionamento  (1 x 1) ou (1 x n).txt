@@ -1,0 +1,58 @@
+
+AULA 08/04/2019 AUto relacionamento na mesma tabela 
+
+
+create table empregados (
+idEmp integer primary key,
+nome varchar(50) not null,
+cpf bigint not null,    
+idSuperv  integer references empregados (idEmp)
+);
+
+insert into empregados values 
+(1,'Andre',44455566677),
+(2,'Eduardo',11122233344),
+(3,'erick',22233311122),
+(4,'eder',99988877766),
+(5,'iago',22288877755),
+(6,'Jean',33322277788),
+(8,'Kevin',22288899911),
+(9,'lucas C',77766644433),
+(10,'Lucas M',33322255500),
+(7, 'marcus',44499911122),
+(11,'Ricardo',33322277711),
+(12,'Tharles',55544455599);
+
+select * from empregados 
+
+
+
+
+
+
+
+update empregados set idsuperv = 5 where idemp =3
+update empregados set idsuperv = 5 where idemp =4
+
+update empregados set idsuperv = 8 where idemp =9;
+update empregados set idsuperv = 8 where idemp =10;
+update empregados set idsuperv = 8 where idemp =12;
+
+--buscar supervisionados do empregado 8
+select * from empregados where idsuperv =8
+select s.nome superv, e.nome empregado 
+       from empregados e 
+       join empregados s
+       on s.idemp = e.idsuperv
+	   where s.idemp = 8
+
+
+
+
+
+-- buscar o nome do supervisor do empregado 4
+select s.nome superv, e.nome empregado 
+       from empregados e 
+       join empregados s
+       on s.idemp = e.idsuperv
+	   where e.idemp = 4

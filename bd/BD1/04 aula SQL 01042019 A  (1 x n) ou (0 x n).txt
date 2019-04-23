@@ -1,0 +1,180 @@
+
+Relação de (1,1) x (0,n)
+1.	Cada CD deve ser gravado por uma gravadora;
+2.	Cada GRAVADORA pode ter gravado  um ou mais CDs; 
+
+-- SQL Permite várias maneiras de criar as tabelas 
+
+create table gravadoras(
+	idGravadora integer primary Key,
+	razao_social varchar(30) not null,
+	cnpj bigint not null,
+	endereco varchar (50),
+	fone integer	
+);
+drop table gravadoras
+
+create table gravadoras(
+	idGravadora integer, 
+	razao_social varchar(30) not null,
+	cnpj bigint not null,
+	endereco varchar (50),
+	fone integer,
+        primary key (idGravadora)
+);
+drop table gravadoras 
+
+create table gravadoras(
+	idGravadora integer, 
+	razao_social varchar(30) not null,
+	cnpj bigint not null,
+	endereco varchar (50),
+	fone integer,
+        constraint gravadoras_primaryKey 
+          	primary key (idGravadora)
+);
+
+
+
+	
+drop table CDs
+create table CDs(
+	idCD integer primary Key,
+	titulo varchar(50) not null, 
+	dtLanc date,
+	idGravadora integer not null
+	  references gravadoras(idGravadora)
+);
+
+
+select * from Gravadoras
+
+insert into gravadoras 
+(idgravadora, razao_social,cnpj, endereco, fone)
+values
+(1,'Amy Odeon',9292930329,'Av.do som',34343434),
+(2,'GLobo',32647632,'Av. musicas', 632636332),
+(3,'Som Livre',373737373,NULL,NULL);
+select * from gravadoras
+select * from cds
+
+insert into cds
+(idCd,titulo,dtlanc,idgravadora)
+values 
+(1,'A Night at the Opera','1975-11-21',1)
+--erro gravadora NULL
+insert into cds
+(idCd,titulo,dtlanc)
+values 
+(2,'Innuendo','1991-10-02')
+
+--erro gravadora inexistente no cadastro
+insert into cds
+(idCd,titulo,dtlanc,idgravadora)
+values 
+(2,'Innuendo','1991-10-02',9)
+
+
+
+-- RELAÇÃO (0,n) x (0,n) 
+
+Um empregado PODE partipar e 0 ou muitos Projetos 
+Um Projeto PODE ter a Participação de 0 ou Muitos empregados 
+
+
+-- create table empregados(
+idEmpregado integer primary key,
+nome varchar(50) not null)
+
+create table projetos (
+idProjetos integer primary key,
+nome varchar(50) not null);
+
+
+insert into empregados 
+values (1,'Iago')
+
+
+insert into empregados 
+values (7,'Ricardo'),
+        (8,'Lucas C'),
+		(9,'Lucas M')
+
+insert into empregados 
+values (2,'Kelvin'),
+        (3,'Eduardo'),
+		(4,'Eric'),
+		(5,'Jean'),
+		(6,'Andre')
+
+
+Insert into projetos
+values (3432, 'Foguete'),
+        (1003,'RH'),
+		(1004,'Contabilidade')
+
+Insert into projetos
+values (5000, 'Distribuicao')
+
+
+select * from empregados 
+select * from projetos 
+
+
+create table participam (
+idEmpregado integer 
+	        references empregados(idempregado), 
+idProjetos integer  
+	       references projetos(idprojetos)
+)
+
+select * from participam
+
+insert into participam
+
+values (6,3432),
+	   (3,1003),
+	   (5,1003),
+	   (2,1002),
+	   (4,1002),
+	   (4,3432)
+
+insert into participam
+values (2,3432),
+
+
+-- lista de projetos e Funcionarios
+select projetos.nome,empregados.nome from 
+       projetos join participam using(idProjetos)
+	   join empregados using(idempregado)
+	   order by  projetos.nome
+	   
+-- lista de  Projetos e funcionarios	 
+select projetos.nome,empregados.nome from 
+       projetos join participam using(idProjetos)
+	   join empregados using(idempregado)
+	   order by  empregados.nome
+
+	   
+--lista empregados e projetos 	   
+select empregados.nome, * from 
+       projetos  join participam using(idProjetos)
+	   join empregados using(idempregado)
+
+	   
+-- mostra todos os Projetos com empregados 
+-- mostra empregados sem projeto e
+-- mostra projetos sem empregados 
+select * from projetos full outer join 
+         participam using(idprojetos)
+		 full outer join empregados using(idempregado)
+		 
+	   
+
+
+
+
+
+
+
+
